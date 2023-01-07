@@ -46,10 +46,10 @@ static int8_t prior_cls[NUM_CLASSES * NUM_PRIORS];
 static uint16_t prior_cls_softmax[NUM_CLASSES * NUM_PRIORS] = { 0 };
 
 //NMS related arrays
-static uint16_t nms_scores[NUM_CLASSES - 2][MAX_PRIORS];
-static uint16_t nms_indices[NUM_CLASSES - 2][MAX_PRIORS];
-static uint8_t nms_removed[NUM_CLASSES - 2][MAX_PRIORS] = { 0 };
-static int num_nms_priors[NUM_CLASSES - 2] = { 0 };
+static uint16_t nms_scores[NUM_CLASSES - 1][MAX_PRIORS];
+static uint16_t nms_indices[NUM_CLASSES - 1][MAX_PRIORS];
+static uint8_t nms_removed[NUM_CLASSES - 1][MAX_PRIORS] = { 0 };
+static int num_nms_priors[NUM_CLASSES - 1] = { 0 };
 
 int get_prior_idx(int ar_idx, int scale_idx, int rel_idx)
 {
@@ -99,7 +99,7 @@ void softmax(void)
         sum = 0.;
         calc_softmax = 0;
 
-        for (ch = 1; ch < (NUM_CLASSES - 1); ++ch) {
+        for (ch = 1; ch < NUM_CLASSES; ++ch) {
             if (prior_cls[i * NUM_CLASSES + ch] >= prior_cls[i * NUM_CLASSES]) {
                 calc_softmax = 1;
                 break;
@@ -146,7 +146,7 @@ void get_prior_locs(void)
 
 void get_prior_cls(void)
 {
-    int8_t *cl_addr = (int8_t *)0x50803000;
+    int8_t *cl_addr = (int8_t *)0x5080b000;
 
     int ar_idx, cl_idx, scale_idx, rel_idx, prior_idx, prior_count;
 
@@ -166,9 +166,9 @@ void get_prior_cls(void)
 
             cl_addr += 0x8000;
 
-            if ((cl_addr == (int8_t *)0x50823000) || (cl_addr == (int8_t *)0x50c23000)) {
-                cl_addr += 0x003e0000;
-            }
+            // if ((cl_addr == (int8_t *)0x50823000) || (cl_addr == (int8_t *)0x50c23000)) {
+            //     cl_addr += 0x003e0000;
+            // }
         }
     }
 
@@ -290,7 +290,7 @@ void insert_nms_prior(uint16_t val, int idx, uint16_t *val_arr, uint16_t *idx_ar
 
 void reset_nms(void)
 {
-    for (int cl = 0; cl < NUM_CLASSES - 2; ++cl) {
+    for (int cl = 0; cl < NUM_CLASSES - 1; ++cl) {
         num_nms_priors[cl] = 0;
 
         for (int p_idx = 0; p_idx < MAX_PRIORS; ++p_idx) {
@@ -315,7 +315,7 @@ void nms(void)
     reset_nms();
 
     for (prior_idx = 0; prior_idx < NUM_PRIORS; ++prior_idx) {
-        for (class_idx = 0; class_idx < (NUM_CLASSES - 2); ++class_idx) {
+        for (class_idx = 0; class_idx < (NUM_CLASSES - 1); ++class_idx) {
             cls_prob = prior_cls_softmax[prior_idx * NUM_CLASSES + class_idx + 1];
 
             if (cls_prob < MIN_CLASS_SCORE) {
@@ -328,7 +328,7 @@ void nms(void)
         }
     }
 
-    for (class_idx = 0; class_idx < (NUM_CLASSES - 2); ++class_idx) {
+    for (class_idx = 0; class_idx < (NUM_CLASSES - 1); ++class_idx) {
         for (nms_idx1 = 0; nms_idx1 < num_nms_priors[class_idx]; ++nms_idx1) {
             if (nms_removed[class_idx][nms_idx1] != 1 &&
                 nms_idx1 != num_nms_priors[class_idx] - 1) {
@@ -366,7 +366,7 @@ void localize_objects(void)
 
     nms();
 
-    for (class_idx = 0; class_idx < (NUM_CLASSES - 2); ++class_idx) {
+    for (class_idx = 0; class_idx < (NUM_CLASSES - 1); ++class_idx) {
         for (prior_idx = 0; prior_idx < num_nms_priors[class_idx]; ++prior_idx) {
             if (nms_removed[class_idx][prior_idx] != 1) {
                 global_prior_idx = nms_indices[class_idx][prior_idx];

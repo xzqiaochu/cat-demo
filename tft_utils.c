@@ -54,7 +54,7 @@ static int font = (int)&SansSerif16x16[0];
 
 static text_t label_text[] = {
     // info
-    { (char *)"One", 3 },  { (char *)"Two", 3 },  { (char *)"Three", 5 }, { (char *)"Four", 4 },
+    { (char *)"Cat", 3 },  { (char *)"Two", 3 },  { (char *)"Three", 5 }, { (char *)"Four", 4 },
     { (char *)"Five", 4 }, { (char *)"Six", 3 },  { (char *)"Seven", 5 }, { (char *)"Eight", 5 },
     { (char *)"Nine", 4 }, { (char *)"Zero", 4 },
 };

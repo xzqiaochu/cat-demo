@@ -6,7 +6,7 @@
 **************************************************************************************************/
 
 /*
- * This header file was automatically generated for the tinyssd_svhn_prior_unload network from a template.
+ * This header file was automatically @generated for the cat network from a template.
  * Please do not edit; instead, edit the template and regenerate.
  */
 
@@ -23,7 +23,7 @@ typedef int16_t q15_t;
 
 /*
   SUMMARY OF OPS
-  Hardware: 200,391,136 ops (199,391,616 macc; 999,520 comp; 0 add; 0 mul; 0 bitwise)
+  Hardware: 195,518,176 ops (194,518,656 macc; 999,520 comp; 0 add; 0 mul; 0 bitwise)
     Layer 0: 4,906,496 ops (4,731,264 macc; 175,232 comp; 0 add; 0 mul; 0 bitwise)
     Layer 1: 50,642,048 ops (50,466,816 macc; 175,232 comp; 0 add; 0 mul; 0 bitwise)
     Layer 2: 25,496,256 ops (25,233,408 macc; 262,848 comp; 0 add; 0 mul; 0 bitwise)
@@ -40,18 +40,18 @@ typedef int16_t q15_t;
     Layer 13: 373,248 ops (373,248 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
     Layer 14: 73,728 ops (73,728 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
     Layer 15: 9,216 ops (9,216 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
-    Layer 16: 4,478,976 ops (4,478,976 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
-    Layer 17: 1,119,744 ops (1,119,744 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
-    Layer 18: 221,184 ops (221,184 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
-    Layer 19: 27,648 ops (27,648 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
+    Layer 16: 746,496 ops (746,496 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
+    Layer 17: 186,624 ops (186,624 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
+    Layer 18: 36,864 ops (36,864 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
+    Layer 19: 4,608 ops (4,608 macc; 0 comp; 0 add; 0 mul; 0 bitwise)
 
   RESOURCE USAGE
-  Weight memory: 339,552 bytes out of 442,368 bytes total (77%)
-  Bias memory:   832 bytes out of 2,048 bytes total (41%)
+  Weight memory: 299,232 bytes out of 442,368 bytes total (67.6%)
+  Bias memory:   672 bytes out of 2,048 bytes total (32.8%)
 */
 
 /* Number of outputs for this network */
-#define CNN_NUM_OUTPUTS 192
+#define CNN_NUM_OUTPUTS 32
 
 /* Use this timer to time the inference */
 #define CNN_INFERENCE_TIMER MXC_TMR0
@@ -64,10 +64,9 @@ typedef int16_t q15_t;
 #define SYS_COMPLETE LED_Off(0)
 
 /* Run software SoftMax on unloaded data */
-void softmax_q17p14_q15(const q31_t *vec_in, const uint16_t dim_vec, q15_t *p_out);
+void softmax_q17p14_q15(const q31_t * vec_in, const uint16_t dim_vec, q15_t * p_out);
 /* Shift the input, then calculate SoftMax */
-void softmax_shift_q17p14_q15(q31_t *vec_in, const uint16_t dim_vec, uint8_t in_shift,
-                              q15_t *p_out);
+void softmax_shift_q17p14_q15(q31_t * vec_in, const uint16_t dim_vec, uint8_t in_shift, q15_t * p_out);
 
 /* Stopwatch - holds the runtime when accelerator finishes */
 extern volatile uint32_t cnn_time;

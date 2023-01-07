@@ -8,7 +8,7 @@
 
 #ifdef BOARD_FTHR_REVA
 // Disable TFT by default on FTHR
-//#define TFT_ENABLE
+#define TFT_ENABLE
 #endif
 
 //#define USE_SAMPLEDATA

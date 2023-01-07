@@ -15,7 +15,7 @@
     },
     
     "target":"MAX78000",
-    "board":"EvKit_V1",
+    "board":"FTHR_RevA",
 
     "project_name":"${workspaceFolderBasename}",
 
@@ -84,6 +84,12 @@
     ],
     "C_Cpp.default.defines": [
         "${config:board}"
-    ]
+    ],
+    "files.associations": {
+        "tft_utils.h": "c",
+        "tft_ili9341.h": "c",
+        "tft_ssd2119.h": "c",
+        "tft_st7735.h": "c"
+    }
 }
 

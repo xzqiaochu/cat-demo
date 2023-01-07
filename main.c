@@ -262,7 +262,7 @@ int main(void)
         TFT_Print(buff, 10, 210, font,
                   snprintf(buff, sizeof(buff), "CNN Time: %.3f ms", (float)cnn_time / 1000));
 #endif
-        MXC_Delay(SEC(1));
+        // MXC_Delay(SEC(1));
     }
 
     return 0;
