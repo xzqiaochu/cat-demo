@@ -158,9 +158,9 @@ int main(void)
     MXC_Delay(200000);
     /* Enable camera power */
     Camera_Power(POWER_ON);
-    printf("\n\nDigit Detection Feather Demo\n");
+    printf("\n\nCat Detection Feather Demo\n");
 #else
-    printf("\n\nDigit Detection Evkit Demo\n");
+    printf("\n\nCat Detection Evkit Demo\n");
 #endif
 
     MXC_ICC_Enable(MXC_ICC0); // Enable cache
@@ -197,8 +197,8 @@ int main(void)
 #endif
     MXC_TFT_ClearScreen();
     memset(buff, 32, TFT_BUFF_SIZE);
-    TFT_Print(buff, 55, 30, font, snprintf(buff, sizeof(buff), "ANALOG DEVICES             "));
-    TFT_Print(buff, 55, 50, font, snprintf(buff, sizeof(buff), "Digit Detection Demo      "));
+    TFT_Print(buff, 55, 30, font, snprintf(buff, sizeof(buff), "WonderBoy             "));
+    TFT_Print(buff, 55, 50, font, snprintf(buff, sizeof(buff), "Cat Detection Demo      "));
     TFT_Print(buff, 55, 90, font, snprintf(buff, sizeof(buff), "Ver. 1.0.0                   "));
     MXC_Delay(SEC(2));
 #endif //#ifdef TFT_ENABLE
