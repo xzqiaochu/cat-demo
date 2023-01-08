@@ -103,6 +103,9 @@ void load_input(void)
     uint8_t r, g, b;
     uint32_t *cnn_mem = (uint32_t *)0x50402000;
     uint32_t color;
+#ifdef TFT_ENABLE
+    uint8_t image[IMAGE_SIZE_X * IMG_SCALE][IMAGE_SIZE_Y * IMG_SCALE][2];
+#endif
 
     camera_start_capture_image();
 
@@ -132,11 +135,19 @@ void load_input(void)
             // Convert to RGB565
             color = ((r & 0b11111000) << 8) | ((g & 0b11111100) << 3) | (b >> 3);
 #endif
-            MXC_TFT_WritePixel(x * IMG_SCALE, y * IMG_SCALE, IMG_SCALE, IMG_SCALE, color);
+            // MXC_TFT_WritePixel(x * IMG_SCALE, y * IMG_SCALE, IMG_SCALE, IMG_SCALE, color);
+            for (uint8_t i = 0; i < IMG_SCALE; i++) {
+                for (uint8_t j = 0; j < IMG_SCALE; j++) {
+                    image[x*IMG_SCALE+i][y*IMG_SCALE+j][0] = color >> 8;
+                    image[x*IMG_SCALE+i][y*IMG_SCALE+j][1] = color & 0xff;
+                }
+            }
 #endif
         }
     }
-
+#ifdef TFT_ENABLE
+    MXC_TFT_ShowImageCameraRGB565(IMG_OFFSET_X, IMG_OFFSET_Y, (uint8_t *)image, IMAGE_SIZE_X * IMG_SCALE, IMAGE_SIZE_Y * IMG_SCALE);
+#endif
 #endif
 }
 
@@ -236,10 +247,11 @@ int main(void)
     cnn_init(); // Bring state machine into consistent state
     cnn_load_weights(); // Load kernels
 
-    while (1) {
 #ifdef TFT_ENABLE
-        MXC_TFT_ClearScreen();
+    MXC_TFT_ClearScreen();
 #endif
+
+    while (1) {
         // Reload bias after wakeup
         cnn_init(); // Bring state machine into consistent state
         cnn_load_bias();

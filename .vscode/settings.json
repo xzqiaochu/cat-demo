@@ -87,9 +87,7 @@
     ],
     "files.associations": {
         "tft_utils.h": "c",
-        "tft_ili9341.h": "c",
-        "tft_ssd2119.h": "c",
-        "tft_st7735.h": "c"
+        "tft_ili9341.h": "c"
     }
 }
 

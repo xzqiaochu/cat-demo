@@ -43,6 +43,7 @@
 #include "uart.h"
 #include "tft_utils.h"
 #include "example_config.h"
+#include "post_process.h"
 
 #ifdef TFT_ENABLE
 #ifdef BOARD_EVKIT_V1
@@ -133,16 +134,16 @@ void draw_obj_rect(float *xy, int class_idx, uint32_t w, uint32_t h, uint8_t sca
 #endif
 
     for (x = x1; x < x2; ++x) {
-        MXC_TFT_WritePixel(x * scale, y1 * scale, scale, scale, color);
-        MXC_TFT_WritePixel(x * scale, y2 * scale, scale, scale, color);
+        MXC_TFT_WritePixel(x * scale + IMG_OFFSET_X, y1 * scale + IMG_OFFSET_Y, scale, scale, color);
+        MXC_TFT_WritePixel(x * scale + IMG_OFFSET_X, y2 * scale + IMG_OFFSET_Y, scale, scale, color);
     }
 
     for (y = y1; y < y2; ++y) {
-        MXC_TFT_WritePixel(x1 * scale, y * scale, scale, scale, color);
-        MXC_TFT_WritePixel(x2 * scale, y * scale, scale, scale, color);
+        MXC_TFT_WritePixel(x1 * scale + IMG_OFFSET_X, y * scale + IMG_OFFSET_Y, scale, scale, color);
+        MXC_TFT_WritePixel(x2 * scale + IMG_OFFSET_X, y * scale + IMG_OFFSET_Y, scale, scale, color);
     }
 
-    MXC_TFT_PrintFont(x1 * scale + THICKNESS, y1 * scale + THICKNESS, font, &label_text[class_idx],
+    MXC_TFT_PrintFont(x1 * scale + IMG_OFFSET_X + THICKNESS, y1 * scale + IMG_OFFSET_Y + THICKNESS, font, &label_text[class_idx],
                       NULL);
 #endif
 }

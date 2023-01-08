@@ -41,7 +41,9 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
-#define IMG_SCALE 3
+#define IMG_SCALE 2
+#define IMG_OFFSET_X 50 
+#define IMG_OFFSET_Y 50
 
 #define NUM_ARS 4
 #define NUM_SCALES 4
