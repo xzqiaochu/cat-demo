@@ -1,15 +1,7 @@
 #ifndef EXAMPLE_CONFIG_H
 #define EXAMPLE_CONFIG_H
 
-#ifdef BOARD_EVKIT_V1
-// Enable TFT by default on EVKIT
 #define TFT_ENABLE
-#endif
-
-#ifdef BOARD_FTHR_REVA
-// Disable TFT by default on FTHR
-#define TFT_ENABLE
-#endif
 
 //#define USE_SAMPLEDATA
 // ^ Uncomment this to use static sample data.

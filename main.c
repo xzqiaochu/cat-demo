@@ -1,37 +1,3 @@
-/*******************************************************************************
- * Copyright (C) 2022 Maxim Integrated Products, Inc., All rights Reserved.
- *
- * This software is protected by copyright laws of the United States and
- * of foreign countries. This material may also be protected by patent laws
- * and technology transfer regulations of the United States and of foreign
- * countries. This software is furnished under a license agreement and/or a
- * nondisclosure agreement and may only be used or reproduced in accordance
- * with the terms of those agreements. Dissemination of this information to
- * any party or parties not specified in the license agreement and/or
- * nondisclosure agreement is expressly prohibited.
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL MAXIM INTEGRATED BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
- *
- * Except as contained in this notice, the name of Maxim Integrated
- * Products, Inc. shall not be used except as stated in the Maxim Integrated
- * Products, Inc. Branding Policy.
- *
- * The mere transfer of this software does not imply any licenses
- * of trade secrets, proprietary technology, copyrights, patents,
- * trademarks, maskwork rights, or any other form of intellectual
- * property whatsoever. Maxim Integrated Products, Inc. retains all
- * ownership rights.
- *******************************************************************************/
-
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
@@ -58,22 +24,11 @@
 #include "uart.h"
 #include "tft_utils.h"
 #include "post_process.h"
-#ifdef BOARD_EVKIT_V1
-#include "bitmap.h"
-#include "tft_ssd2119.h"
-#endif
-#ifdef BOARD_FTHR_REVA
 #include "tft_ili9341.h"
-#endif
 
 #include "example_config.h"
 
-#ifdef BOARD_EVKIT_V1
-int font = urw_gothic_12_grey_bg_white;
-#endif
-#ifdef BOARD_FTHR_REVA
 int font = (int)&SansSerif16x16[0];
-#endif
 volatile uint32_t cnn_time; // Stopwatch
 
 // 3-channel 74x74 data input (16428 bytes total / 5476 bytes per channel):
@@ -127,14 +82,8 @@ void load_input(void)
 
             // display on TFT
 #ifdef TFT_ENABLE
-#ifdef BOARD_EVKIT_V1
-            color = (0x01000100 | ((b & 0xF8) << 13) | ((g & 0x1C) << 19) | ((g & 0xE0) >> 5) |
-                     (r & 0xF8));
-#endif
-#ifdef BOARD_FTHR_REVA
             // Convert to RGB565
             color = ((r & 0b11111000) << 8) | ((g & 0b11111100) << 3) | (b >> 3);
-#endif
             // MXC_TFT_WritePixel(x * IMG_SCALE, y * IMG_SCALE, IMG_SCALE, IMG_SCALE, color);
             for (uint8_t i = 0; i < IMG_SCALE; i++) {
                 for (uint8_t j = 0; j < IMG_SCALE; j++) {
@@ -164,15 +113,11 @@ int main(void)
 #ifdef TFT_ENABLE
     char buff[TFT_BUFF_SIZE];
 #endif
-#if defined(BOARD_FTHR_REVA)
     // Wait for PMIC 1.8V to become available, about 180ms after power up.
     MXC_Delay(200000);
     /* Enable camera power */
     Camera_Power(POWER_ON);
     printf("\n\nCat Detection Feather Demo\n");
-#else
-    printf("\n\nCat Detection Evkit Demo\n");
-#endif
 
     MXC_ICC_Enable(MXC_ICC0); // Enable cache
 
@@ -197,15 +142,10 @@ int main(void)
 #ifdef TFT_ENABLE
     // Initialize TFT display.
     printf("Init LCD...");
-#ifdef BOARD_EVKIT_V1
-    MXC_TFT_Init();
-#endif
-#ifdef BOARD_FTHR_REVA
     /* Initialize TFT display */
     MXC_TFT_Init(MXC_SPI0, 1, NULL, NULL);
     MXC_TFT_SetRotation(ROTATE_270);
     MXC_TFT_SetForeGroundColor(WHITE); // set chars to white
-#endif
     MXC_TFT_ClearScreen();
     memset(buff, 32, TFT_BUFF_SIZE);
     TFT_Print(buff, 55, 30, font, snprintf(buff, sizeof(buff), "WonderBoy             "));

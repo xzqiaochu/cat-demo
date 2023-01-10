@@ -21,12 +21,6 @@ override CAMERA=OV7692
 # timing requirements of the Parallel Camera Interface.
 MXC_OPTIMIZE_CFLAGS = -O2
 
-ifeq "$(BOARD)" "EvKit_V1"
-VPATH += TFT/evkit/resources
-endif
-ifeq "$(BOARD)" "FTHR_RevA"
 VPATH += TFT/fthr
-endif
 
 IPATH += TFT/evkit/resources
-
