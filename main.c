@@ -38,13 +38,6 @@ static uint32_t input_buffer[] = SAMPLE_INPUT_0;
 uint32_t *input = input_buffer;
 #endif
 
-void fail(void)
-{
-    printf("\n*** FAIL ***\n\n");
-
-    while (1) {}
-}
-
 void load_input(void)
 {
 #ifdef USE_SAMPLEDATA
@@ -68,8 +61,6 @@ void load_input(void)
 
     camera_get_image(&frame_buffer, &imgLen, &w, &h);
     buffer = frame_buffer;
-
-    printf("Width:%d Height:%d\n", w, h);
 
     for (y = 0; y < h; y++) {
         for (x = 0; x < w; x++) {
@@ -100,14 +91,6 @@ void load_input(void)
 #endif
 }
 
-void cnn_wait(void)
-{
-    while ((*((volatile uint32_t *)0x50100000) & (1 << 12)) != 1 << 12) {}
-
-    CNN_COMPLETE; // Signal that processing is complete
-    cnn_time = MXC_TMR_SW_Stop(MXC_TMR0);
-}
-
 int main(void)
 {
 #ifdef TFT_ENABLE
@@ -125,7 +108,7 @@ int main(void)
     MXC_SYS_Clock_Select(MXC_SYS_CLOCK_IPO);
     SystemCoreClockUpdate();
 
-    printf("Waiting...\n");
+    printf("Waiting...");
 
     // DO NOT DELETE THIS LINE:
     MXC_Delay(SEC(2)); // Let debugger interrupt if needed
@@ -139,6 +122,8 @@ int main(void)
     MXC_GPIO_Config(&gpio_out);
     MXC_GPIO_OutSet(gpio_out.port, gpio_out.mask);
 
+    printf("\tDone\n");
+
 #ifdef TFT_ENABLE
     // Initialize TFT display.
     printf("Init LCD...");
@@ -148,15 +133,13 @@ int main(void)
     MXC_TFT_SetForeGroundColor(WHITE); // set chars to white
     MXC_TFT_ClearScreen();
     memset(buff, 32, TFT_BUFF_SIZE);
-    TFT_Print(buff, 55, 30, font, snprintf(buff, sizeof(buff), "WonderBoy             "));
-    TFT_Print(buff, 55, 50, font, snprintf(buff, sizeof(buff), "Cat Detection Demo      "));
-    TFT_Print(buff, 55, 90, font, snprintf(buff, sizeof(buff), "Ver. 1.0.0                   "));
-    MXC_Delay(SEC(2));
+    printf("\tDone\n");
+    // TFT_Print(buff, 55, 30, font, snprintf(buff, sizeof(buff), "WonderBoy             "));
+    // TFT_Print(buff, 55, 50, font, snprintf(buff, sizeof(buff), "Cat Detection Demo      "));
+    // TFT_Print(buff, 55, 90, font, snprintf(buff, sizeof(buff), "Ver. 1.0.0                   "));
+    // MXC_Delay(SEC(2));
+    // MXC_TFT_ClearScreen();
 #endif //#ifdef TFT_ENABLE
-
-    int xx = IMAGE_SIZE_X;
-    int yy = IMAGE_SIZE_Y;
-    printf("x %d  y %d\n", xx, yy);
 
 #if !defined(USE_SAMPLEDATA)
     int dma_channel;
@@ -175,6 +158,8 @@ int main(void)
     if (ret != STATUS_OK) {
         printf("\tError returned from setting up camera. Error %d\n", ret);
         return -1;
+    } else {
+        printf("\tDone\n");
     }
 
 #else
@@ -186,16 +171,10 @@ int main(void)
     cnn_enable(MXC_S_GCR_PCLKDIV_CNNCLKSEL_PCLK, MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV1);
     cnn_init(); // Bring state machine into consistent state
     cnn_load_weights(); // Load kernels
-
-#ifdef TFT_ENABLE
-    MXC_TFT_ClearScreen();
-#endif
+    cnn_load_bias();
+    cnn_configure(); // Configure state machine
 
     while (1) {
-        // Reload bias after wakeup
-        cnn_init(); // Bring state machine into consistent state
-        cnn_load_bias();
-        cnn_configure(); // Configure state machine
         load_input(); // Load data input
 
         LED_On(LED1);
@@ -209,10 +188,9 @@ int main(void)
         get_priors();
         localize_objects();
 
-        printf("CNN time: %d us\n\n", cnn_time);
+        printf("CNN time: %.3f ms\n\n", (float)cnn_time / 1000);
 #ifdef TFT_ENABLE
-        TFT_Print(buff, 10, 210, font,
-                  snprintf(buff, sizeof(buff), "CNN Time: %.3f ms", (float)cnn_time / 1000));
+        TFT_Print(buff, 10, 210, font, snprintf(buff, sizeof(buff), "CNN Time: %.3f ms", (float)cnn_time / 1000));
 #endif
         // MXC_Delay(SEC(1));
     }

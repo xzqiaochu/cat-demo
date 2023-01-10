@@ -9,11 +9,13 @@ Info : CMSIS-DAP: Interface ready
 Info : clock speed 2000 kHz
 Info : SWD DPIDR 0x2ba01477
 Info : max32xxx.cpu: Cortex-M4 r0p1 processor detected
+Info : SWD DPIDR 0x2ba01477
+Error: Failed to write memory at 0xe0002028
 Info : max32xxx.cpu: target has 6 breakpoints, 4 watchpoints
 Info : max32xxx.cpu: external reset detected
 Info : starting gdb server for max32xxx.cpu on pipe
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x810e0000 pc: 0x10003846 msp: 0x200153e8
+xPSR: 0x610e0000 pc: 0x10003e78 msp: 0x20015420
 Info : SWD DPIDR 0x2ba01477
 target halted due to debug-request, current mode: Thread 
 xPSR: 0x81000000 pc: 0x00002124 msp: 0x20003ff0
@@ -24,8 +26,7 @@ Warn : Prefer GDB command "target extended-remote :pipe" instead of "target remo
 Info : SWD DPIDR 0x2ba01477
 target halted due to debug-request, current mode: Thread 
 xPSR: 0x81000000 pc: 0x00002124 msp: 0x20003ff0
-Warn : keep_alive() was not invoked in the 1000 ms timelimit. GDB alive packet not sent! (1970 ms). Workaround: increase "set remotetimeout" in GDB
-Info : Padding image section 0 at 0x1005ba78 with 8 bytes
+Warn : keep_alive() was not invoked in the 1000 ms timelimit. GDB alive packet not sent! (1971 ms). Workaround: increase "set remotetimeout" in GDB
 Info : SWD DPIDR 0x2ba01477
 target halted due to debug-request, current mode: Thread 
 xPSR: 0x81000000 pc: 0x00002124 msp: 0x20003ff0
