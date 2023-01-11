@@ -12,8 +12,8 @@
 #include "cnn.h"
 #include "sampledata.h"
 
-#include "post_process.h"
-#include "tft_utils.h"
+#include "process.h"
+#include "tft.h"
 #include "config.h"
 
 volatile uint32_t cnn_time; // Stopwatch

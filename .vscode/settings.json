@@ -86,27 +86,6 @@
         "${config:board}"
     ],
     "files.associations": {
-        "tft_utils.h": "c",
-        "tft_ili9341.h": "c",
-        "spi.h": "c",
-        "mxc.h": "c",
-        "uart.h": "c",
-        "post_process.h": "c",
-        "camera.h": "c",
-        "gcfr_regs.h": "c",
-        "tmr.h": "c",
-        "dma.h": "c",
-        "pb.h": "c",
-        "string.h": "c",
-        "board.h": "c",
-        "fcr_regs.h": "c",
-        "icc.h": "c",
-        "mxc_delay.h": "c",
-        "sampledata.h": "c",
-        "cnn.h": "c",
-        "stdlib.h": "c",
-        "config.h": "c",
-        "mxc_sys.h": "c"
     }
 }
 

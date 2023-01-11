@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "post_process.h"
-#include "tft_utils.h"
+#include "process.h"
+#include "tft.h"
 #include "config.h"
 
 const int dims[NUM_SCALES] = {

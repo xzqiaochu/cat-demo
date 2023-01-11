@@ -1,3 +1,6 @@
+#ifndef __PROCESS_H__
+#define __PROCESS_H_
+
 #include <stdint.h>
 
 #define SQUARE(x) ((x) * (x))
@@ -19,3 +22,5 @@ void get_cxcy(float *cxcy, int prior_idx);
 void gcxgcy_to_cxcy(float *cxcy, int prior_idx, float *priors_cxcy);
 void cxcy_to_xy(float *xy, float *cxcy);
 void localize_objects(void);
+
+#endif // __PROCESS_H__

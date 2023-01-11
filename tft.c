@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "tft_utils.h"
+#include "tft.h"
 #include "tft_ili9341.h"
 #include "config.h"
 
