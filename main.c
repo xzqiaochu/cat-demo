@@ -14,6 +14,7 @@
 
 #include "process.h"
 #include "tft.h"
+#include "motor.h"
 #include "config.h"
 
 volatile uint32_t cnn_time; // Stopwatch
@@ -143,6 +144,11 @@ int main(void)
     cnn_load_weights(); // Load kernels
     cnn_load_bias();
     cnn_configure(); // Configure state machine
+    printf("\tDone\n");
+
+    /* Initialize Motor */
+    printf("Init Motor...");
+    motor_init();
     printf("\tDone\n");
 
     while (1) {

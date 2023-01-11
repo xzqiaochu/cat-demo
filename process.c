@@ -375,6 +375,6 @@ void localize_objects(void)
     }
 
     if (max_conf >= MIN_CONF && max_area >= MIN_AREA) {
-        motor_step();
+        motor_go();
     }
 }
