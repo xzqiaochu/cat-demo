@@ -101,11 +101,6 @@ int main(void)
     /* Initialize TFT display. */
     char buff[TFT_BUFF_SIZE];
     TFT_Init();
-    // TFT_Print(buff, 55, 30, font, snprintf(buff, sizeof(buff), "WonderBoy"));
-    // TFT_Print(buff, 55, 50, font, snprintf(buff, sizeof(buff), "Cat Detection Demo"));
-    // TFT_Print(buff, 55, 90, font, snprintf(buff, sizeof(buff), "Ver. 1.0.0"));
-    // MXC_Delay(SEC(2));
-    // MXC_TFT_ClearScreen();
 
 #if !defined(USE_SAMPLEDATA)
     /* Initialize camera. */
@@ -164,7 +159,7 @@ int main(void)
         localize_objects();
 
         printf("CNN time: %.3f ms\n\n", (float)cnn_time / 1000);
-        TFT_Print(10, 210, buff, snprintf(buff, sizeof(buff), "CNN Time: %.3f ms", (float)cnn_time / 1000));
+        TFT_Print(5, 210, buff, snprintf(buff, sizeof(buff), "CNN Time: %.3f ms", (float)cnn_time / 1000));
         
         // MXC_Delay(SEC(1));
     }

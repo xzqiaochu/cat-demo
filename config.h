@@ -10,6 +10,10 @@
 #define XY_MIN 0.05f
 #define XY_MAX 0.95f
 
+// MOTOR
+#define MIN_CONF 0.7f
+#define MIN_AREA 0.2f
+
 // CAMERA
 #define CAMERA_FREQ (10 * 1000 * 1000)
 #define IMG_SIZE_X 74
@@ -19,7 +23,7 @@
 #define TFT_ENABLE
 #define TFT_BUFF_SIZE 50
 #define TFT_SCALE 2
-#define TFT_OFFSET_X 50 
-#define TFT_OFFSET_Y 50
+#define TFT_OFFSET_X 0 
+#define TFT_OFFSET_Y 0
 
 #endif // __CONFIG_H__
