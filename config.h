@@ -15,7 +15,7 @@
 #define MIN_AREA 0.2f
 
 // CAMERA
-#define CAMERA_FREQ (10 * 1000 * 1000)
+#define CAMERA_FREQ (25 * 1000 * 1000)
 #define IMG_SIZE_X 74
 #define IMG_SIZE_Y 74
 

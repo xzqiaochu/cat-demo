@@ -5,6 +5,6 @@ void motor_init() {
 
 }
 
-void motor_callback(uint8_t give) {
+void motor_step() {
 
 }
