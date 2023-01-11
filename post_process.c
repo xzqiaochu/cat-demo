@@ -341,10 +341,9 @@ void localize_objects(void)
                 gcxgcy_to_cxcy(cxcy, global_prior_idx, prior_cxcy);
                 cxcy_to_xy(xy, cxcy);
 
-                printf("class: %d, prior_idx: %d, prior: %d, x1: %.2f, y1: %.2f, x2: %.2f, y2: "
-                       "%.2f \n",
+                printf("class: %d, prior_idx: %d, prior: %d, x1: %.2f, y1: %.2f, x2: %.2f, y2: %.2f \n",
                        class_idx + 1, prior_idx, global_prior_idx, xy[0], xy[1], xy[2], xy[3]);
-                draw_obj_rect(xy, class_idx, IMAGE_SIZE_X, IMAGE_SIZE_Y, IMG_SCALE);
+                draw_obj_rect(xy);
             }
         }
     }
