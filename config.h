@@ -23,7 +23,7 @@
 #define TFT_ENABLE
 #define TFT_BUFF_SIZE 50
 #define TFT_SCALE 2
-#define TFT_OFFSET_X 0 
-#define TFT_OFFSET_Y 0
+#define TFT_OFFSET_X 86 
+#define TFT_OFFSET_Y 21
 
 #endif // __CONFIG_H__
