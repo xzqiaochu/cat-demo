@@ -336,6 +336,7 @@ void localize_objects(void)
     float prior_cxcy[4];
     float cxcy[4];
     float xy[4];
+    float confidence;
     int class_idx, prior_idx, global_prior_idx;
 
     nms();
@@ -344,6 +345,8 @@ void localize_objects(void)
         for (prior_idx = 0; prior_idx < num_nms_priors[class_idx]; ++prior_idx) {
             if (nms_removed[class_idx][prior_idx] != 1) {
                 global_prior_idx = nms_indices[class_idx][prior_idx];
+                confidence = (float) prior_cls_softmax[global_prior_idx * NUM_CLASSES + class_idx + 1] / 65536;
+                
                 get_cxcy(prior_cxcy, global_prior_idx);
                 gcxgcy_to_cxcy(cxcy, global_prior_idx, prior_cxcy);
                 cxcy_to_xy(xy, cxcy);
@@ -353,8 +356,8 @@ void localize_objects(void)
                 xy[2] = MIN(XY_MAX, xy[2]);
                 xy[3] = MIN(XY_MAX, xy[3]);
 
-                printf("class: %d, prior_idx: %d, prior: %d, x1: %.2f, y1: %.2f, x2: %.2f, y2: %.2f \n",
-                       class_idx + 1, prior_idx, global_prior_idx, xy[0], xy[1], xy[2], xy[3]);
+                printf("[%d](%3.0f%%) x1: %.2f, y1: %.2f, x2: %.2f, y2: %.2f\n",
+                       prior_idx, confidence * 100, xy[0], xy[1], xy[2], xy[3]);
                 draw_obj_rect(xy);
             }
         }

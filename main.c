@@ -163,7 +163,7 @@ int main(void)
         get_priors();
         localize_objects();
 
-        printf("\nCNN time: %.3f ms\n", (float)cnn_time / 1000);
+        printf("CNN time: %.3f ms\n\n", (float)cnn_time / 1000);
         TFT_Print(10, 210, buff, snprintf(buff, sizeof(buff), "CNN Time: %.3f ms", (float)cnn_time / 1000));
         
         // MXC_Delay(SEC(1));

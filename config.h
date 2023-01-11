@@ -5,7 +5,7 @@
 
 // CNN
 #define MAX_PRIORS 100
-#define MIN_CLASS_SCORE 39322 // 65536 * 60%
+#define MIN_CLASS_SCORE 47857 // 65536 * 70%
 #define MAX_ALLOWED_OVERLAP 0.3
 #define XY_MIN 0.05f
 #define XY_MAX 0.95f
