@@ -1,3 +1,9 @@
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <stdio.h>
+#include <math.h>
+
 #include "post_process.h"
 #include "tft_utils.h"
 
