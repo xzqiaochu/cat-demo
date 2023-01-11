@@ -6,6 +6,7 @@
 
 #include "post_process.h"
 #include "tft_utils.h"
+#include "config.h"
 
 const int dims[NUM_SCALES] = {
     18, 9, 4, 2
@@ -346,6 +347,11 @@ void localize_objects(void)
                 get_cxcy(prior_cxcy, global_prior_idx);
                 gcxgcy_to_cxcy(cxcy, global_prior_idx, prior_cxcy);
                 cxcy_to_xy(xy, cxcy);
+
+                xy[0] = MAX(XY_MIN, xy[0]);
+                xy[1] = MAX(XY_MIN, xy[1]);
+                xy[2] = MIN(XY_MAX, xy[2]);
+                xy[3] = MIN(XY_MAX, xy[3]);
 
                 printf("class: %d, prior_idx: %d, prior: %d, x1: %.2f, y1: %.2f, x2: %.2f, y2: %.2f \n",
                        class_idx + 1, prior_idx, global_prior_idx, xy[0], xy[1], xy[2], xy[3]);

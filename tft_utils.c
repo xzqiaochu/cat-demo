@@ -43,16 +43,14 @@ void draw_obj_rect(float *xy)
     // Convert to RGB565
     uint32_t color = ((r & 0b11111000) << 8) | ((g & 0b11111100) << 3) | (b >> 3);
 
-    for (int x = x1; x < x2; ++x) {
+    for (int x = x1; x <= x2; ++x) {
         MXC_TFT_WritePixel(x * TFT_SCALE + TFT_OFFSET_X, y1 * TFT_SCALE + TFT_OFFSET_Y, TFT_SCALE, TFT_SCALE, color);
         MXC_TFT_WritePixel(x * TFT_SCALE + TFT_OFFSET_X, y2 * TFT_SCALE + TFT_OFFSET_Y, TFT_SCALE, TFT_SCALE, color);
     }
 
-    for (int y = y1; y < y2; ++y) {
+    for (int y = y1; y <= y2; ++y) {
         MXC_TFT_WritePixel(x1 * TFT_SCALE + TFT_OFFSET_X, y * TFT_SCALE + TFT_OFFSET_Y, TFT_SCALE, TFT_SCALE, color);
         MXC_TFT_WritePixel(x2 * TFT_SCALE + TFT_OFFSET_X, y * TFT_SCALE + TFT_OFFSET_Y, TFT_SCALE, TFT_SCALE, color);
     }
-
-    TFT_Print(x1 * TFT_SCALE + TFT_OFFSET_X + THICKNESS, y1 * TFT_SCALE + TFT_OFFSET_Y + THICKNESS, "Cat", 3);
 #endif
 }
